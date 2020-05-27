@@ -1,7 +1,8 @@
 name: indexed_iterable
 description: A simple delegate representing `Iterable`, like `List` and `set`, with index.
-version: 1.0.2
+version: 1.0.3
 homepage: https://www.gihwan.com
+repository: https://github.com/Dart-for-Apps/indexed_iterable
 
 environment:
   sdk: ">=2.7.0 <3.0.0"

@@ -14,7 +14,7 @@ class IndexedIterable with IterableMixin {
   Iterator get iterator => IndexedIterator(_iterable);
 }
 
-class IndexedIterator extends Iterator {
+class IndexedIterator<ValueType> extends Iterator {
   IndexedIterator(this._iterable) {
     _innerIterator = _iterable.iterator;
   }
@@ -24,7 +24,7 @@ class IndexedIterator extends Iterator {
   int _index = -1;
 
   @override
-  IndexedValue get current => IndexedValue(_index, _innerIterator.current);
+  IndexedValue get current => IndexedValue<ValueType>(_index, _innerIterator.current);
 
   @override
   bool moveNext() {
@@ -33,14 +33,14 @@ class IndexedIterator extends Iterator {
   }
 }
 
-class IndexedValue {
+class IndexedValue<ValueType> {
   IndexedValue(this.index, this.value);
 
   /// Index of the value
   final int index;
 
   /// Real value
-  final int value;
+  final ValueType value;
 
   @override
   String toString() => 'IV($index, $value)';
