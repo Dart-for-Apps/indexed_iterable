@@ -6,32 +6,32 @@ import 'dart:async';
 import 'model/indexed_value.dart';
 
 ///Concise the conversion
-Stream<IndexedValue> IndexedStream(Stream s) => s.IS;
+Stream<IndexedValue> IndexedStream<T>(Stream<T> s) => s.IS;
 
 /// For the users who prefer functions than classes
-Stream<IndexedValue> toIndexedStream(Stream s) => s.IS;
+Stream<IndexedValue> toIndexedStream<T>(Stream<T> s) => s.IS;
 
 /// For the users who prefer abbreviated functions
-Stream<IndexedValue> toIS(Stream s) => s.IS;
+Stream<IndexedValue> toIS<T>(Stream<T> s) => s.IS;
 
-class _IndexedStreamTransformer<InputType> extends StreamTransformerBase<InputType, IndexedValue> {
+class _IndexedStreamTransformer<T> extends StreamTransformerBase<T, IndexedValue<T>> {
   _IndexedStreamTransformer();
   int index = 0;
 
   void handleIndexing(data, EventSink sink) {
-    sink.add(IndexedValue(index++, data));
+    sink.add(IndexedValue<T>(index++, data));
   }
 
   @override
-  Stream<IndexedValue> bind(Stream<InputType> stream) {
+  Stream<IndexedValue<T>> bind(Stream<T> stream) {
     return stream.transform(StreamTransformer.fromHandlers(handleData: handleIndexing));
   }
 }
 
 /// Alternative ways to convert `Stream` into `IndexedStream`
-extension IndexedStreamExtension on Stream {
-  Stream<IndexedValue> toIndexedStream() => _IndexedStreamTransformer().bind(this);
-  Stream<IndexedValue> toIS() => toIndexedStream();
-  Stream<IndexedValue> get IS => toIS();
-  Stream<IndexedValue> get indexedStream => IS;
+extension IndexedStreamExtension<T> on Stream<T> {
+  Stream<IndexedValue<T>> toIndexedStream() => _IndexedStreamTransformer<T>().bind(this);
+  Stream<IndexedValue<T>> toIS() => toIndexedStream();
+  Stream<IndexedValue<T>> get IS => toIS();
+  Stream<IndexedValue<T>> get indexedStream => IS;
 }

@@ -6,27 +6,27 @@ import 'dart:collection';
 import 'model/indexed_map_entry.dart';
 
 /// Delegate for indexed map
-class IndexedMap with IterableMixin<IndexedMapEntry> {
+class IndexedMap<K, V> with IterableMixin<IndexedMapEntry> {
   IndexedMap(this._map);
 
-  final Map _map;
+  final Map<K, V> _map;
 
   @override
-  Iterator<IndexedMapEntry> get iterator => _IndexedMapIterator(_map);
+  Iterator<IndexedMapEntry<K, V>> get iterator => _IndexedMapIterator<K, V>(_map);
 }
 
-class _IndexedMapIterator extends Iterator<IndexedMapEntry> {
+class _IndexedMapIterator<K, V> extends Iterator<IndexedMapEntry<K, V>> {
   _IndexedMapIterator(this._map) {
     _innerIterator = _map.keys.iterator;
   }
 
-  final Map _map;
+  final Map<K, V> _map;
   Iterator _innerIterator;
   int _index = -1;
 
   @override
-  IndexedMapEntry get current =>
-      IndexedMapEntry(_index, _innerIterator.current, _map[_innerIterator.current]);
+  IndexedMapEntry<K, V> get current =>
+      IndexedMapEntry<K, V>(_index, _innerIterator.current, _map[_innerIterator.current]);
 
   @override
   bool moveNext() {
@@ -36,10 +36,10 @@ class _IndexedMapIterator extends Iterator<IndexedMapEntry> {
 }
 
 /// Alternative ways to convert `Map`s into `IndexedMap`s
-extension IndexedMapExtension on Map {
-  IndexedMap get indexedMap => IndexedMap(this);
-  IndexedMap get im => indexedMap;
-  IndexedMap get IM => im;
-  IndexedMap toIM() => IM;
-  IndexedMap toIndexedMap() => IM;
+extension IndexedMapExtension<K, V> on Map<K, V> {
+  IndexedMap<K, V> get indexedMap => IndexedMap<K, V>(this);
+  IndexedMap<K, V> get im => indexedMap;
+  IndexedMap<K, V> get IM => im;
+  IndexedMap<K, V> toIM() => IM;
+  IndexedMap<K, V> toIndexedMap() => IM;
 }

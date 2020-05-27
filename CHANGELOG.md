@@ -1,3 +1,7 @@
+# 1.1.0+1
+
+Resolve type system issue
+
 # 1.1.0
 
 - Add auto-complete for `IndexedValue.value` and `IndexedValue.index`.

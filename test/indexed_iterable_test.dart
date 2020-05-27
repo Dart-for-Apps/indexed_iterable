@@ -32,7 +32,7 @@ void main() {
     });
 
     test('Map to IndexedMap', () async {
-      final testMap = {'hi': 'hihi', 'bye': 'byebye'};
+      final testMap = <String, String>{'hi': 'hihi', 'bye': 'byebye'};
       var i = 0;
       for (final im in IndexedMap(testMap)) {
         expect(im.index, i++);
@@ -42,7 +42,7 @@ void main() {
   });
 }
 
-Stream testStreamBuilder() async* {
+Stream<int> testStreamBuilder() async* {
   for (var i = 0; i < 10; i++) {
     yield i * 2;
   }

@@ -7,24 +7,24 @@ import 'package:indexed_iterable/indexed_iterable.dart';
 import 'model/indexed_value.dart';
 
 /// For the users who prefer functions than classes
-IndexedIterable toII(Iterable _iterable) => II(_iterable);
+IndexedIterable toII<T>(Iterable<T> _iterable) => II<T>(_iterable);
 
 /// Abbr for IndexedIterable
-class II extends IndexedIterable {
+class II<T> extends IndexedIterable<T> {
   II(Iterable iterable) : super(iterable);
 }
 
 /// Main class implementing indexing for `Iterable`
-class IndexedIterable with IterableMixin<IndexedValue> {
+class IndexedIterable<T> with IterableMixin<IndexedValue<T>> {
   IndexedIterable(this._iterable);
 
   final Iterable _iterable;
 
   @override
-  Iterator<IndexedValue> get iterator => _IndexedIterableIterator(_iterable);
+  Iterator<IndexedValue<T>> get iterator => _IndexedIterableIterator<T>(_iterable);
 }
 
-class _IndexedIterableIterator<ValueType> extends Iterator<IndexedValue> {
+class _IndexedIterableIterator<T> extends Iterator<IndexedValue<T>> {
   _IndexedIterableIterator(this._iterable) {
     _innerIterator = _iterable.iterator;
   }
@@ -34,7 +34,7 @@ class _IndexedIterableIterator<ValueType> extends Iterator<IndexedValue> {
   int _index = -1;
 
   @override
-  IndexedValue get current => IndexedValue<ValueType>(_index, _innerIterator.current);
+  IndexedValue<T> get current => IndexedValue<T>(_index, _innerIterator.current);
 
   @override
   bool moveNext() {
@@ -44,10 +44,10 @@ class _IndexedIterableIterator<ValueType> extends Iterator<IndexedValue> {
 }
 
 /// Alternative ways to convert iterables into IndexedIterable
-extension IndexedIterableExtension on Iterable {
-  IndexedIterable get indexedIterable => IndexedIterable(this);
-  IndexedIterable get ii => indexedIterable;
-  IndexedIterable get II => indexedIterable;
-  IndexedIterable toII() => indexedIterable;
-  IndexedIterable toIndexedIterable() => indexedIterable;
+extension IndexedIterableExtension<T> on Iterable<T> {
+  IndexedIterable<T> get indexedIterable => IndexedIterable<T>(this);
+  IndexedIterable<T> get ii => indexedIterable;
+  IndexedIterable<T> get II => indexedIterable;
+  IndexedIterable<T> toII() => indexedIterable;
+  IndexedIterable<T> toIndexedIterable() => indexedIterable;
 }
