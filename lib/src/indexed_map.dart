@@ -12,7 +12,8 @@ class IndexedMap<K, V> with IterableMixin<IndexedMapEntry> {
   final Map<K, V> _map;
 
   @override
-  Iterator<IndexedMapEntry<K, V>> get iterator => _IndexedMapIterator<K, V>(_map);
+  Iterator<IndexedMapEntry<K, V>> get iterator =>
+      _IndexedMapIterator<K, V>(_map);
 }
 
 class _IndexedMapIterator<K, V> extends Iterator<IndexedMapEntry<K, V>> {
@@ -25,8 +26,8 @@ class _IndexedMapIterator<K, V> extends Iterator<IndexedMapEntry<K, V>> {
   int _index = -1;
 
   @override
-  IndexedMapEntry<K, V> get current =>
-      IndexedMapEntry<K, V>(_index, _innerIterator.current, _map[_innerIterator.current]);
+  IndexedMapEntry<K, V> get current => IndexedMapEntry<K, V>(
+      _index, _innerIterator.current, _map[_innerIterator.current]);
 
   @override
   bool moveNext() {

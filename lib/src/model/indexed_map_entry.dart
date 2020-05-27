@@ -17,5 +17,8 @@ class IndexedMapEntry<KeyType, ValueType> {
   /// For the test, this operator does not compare `hashValue`
   @override
   bool operator ==(other) =>
-      other is IndexedMapEntry && index == other.index && value == other.value && key == other.key;
+      other is IndexedMapEntry &&
+      index == other.index &&
+      value == other.value &&
+      key == other.key;
 }

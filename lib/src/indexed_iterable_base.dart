@@ -2,7 +2,6 @@
 library indexed_iterable.indexed_iterable;
 
 import 'dart:collection';
-import 'package:indexed_iterable/indexed_iterable.dart';
 
 import 'model/indexed_value.dart';
 
@@ -21,7 +20,8 @@ class IndexedIterable<T> with IterableMixin<IndexedValue<T>> {
   final Iterable _iterable;
 
   @override
-  Iterator<IndexedValue<T>> get iterator => _IndexedIterableIterator<T>(_iterable);
+  Iterator<IndexedValue<T>> get iterator =>
+      _IndexedIterableIterator<T>(_iterable);
 }
 
 class _IndexedIterableIterator<T> extends Iterator<IndexedValue<T>> {
@@ -34,7 +34,8 @@ class _IndexedIterableIterator<T> extends Iterator<IndexedValue<T>> {
   int _index = -1;
 
   @override
-  IndexedValue<T> get current => IndexedValue<T>(_index, _innerIterator.current);
+  IndexedValue<T> get current =>
+      IndexedValue<T>(_index, _innerIterator.current);
 
   @override
   bool moveNext() {

@@ -1,3 +1,7 @@
+# 1.1.0+2
+
+Apply `dartfmt`
+
 # 1.1.0+1
 
 Resolve type system issue

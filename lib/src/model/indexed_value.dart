@@ -13,5 +13,6 @@ class IndexedValue<ValueType> {
 
   /// For the test, this operator does not compare `hashValue`
   @override
-  bool operator ==(other) => other is IndexedValue && index == other.index && value == other.value;
+  bool operator ==(other) =>
+      other is IndexedValue && index == other.index && value == other.value;
 }
