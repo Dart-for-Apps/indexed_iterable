@@ -4,5 +4,5 @@
 library indexed_iterable;
 
 export 'src/indexed_iterable_base.dart';
-
-// TODO: Export any libraries intended for clients of this package.
+export 'src/indexed_stream.dart';
+export 'src/indexed_map.dart';

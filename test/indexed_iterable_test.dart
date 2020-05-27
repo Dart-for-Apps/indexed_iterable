@@ -1,4 +1,5 @@
 import 'package:indexed_iterable/indexed_iterable.dart';
+import 'package:indexed_iterable/src/model/indexed_value.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -20,5 +21,29 @@ void main() {
       }
       expect(testSet.ii, ivList);
     });
+
+    test('Stream to IndexedStream', () async {
+      final testStream = testStreamBuilder();
+      var i = 0;
+      await for (final ins in IndexedStream(testStream)) {
+        expect(ins.index, i++);
+        expect(ins.value, ins.index * 2);
+      }
+    });
+
+    test('Map to IndexedMap', () async {
+      final testMap = {'hi': 'hihi', 'bye': 'byebye'};
+      var i = 0;
+      for (final im in IndexedMap(testMap)) {
+        expect(im.index, i++);
+        expect(im.value, testMap[im.key]);
+      }
+    });
   });
+}
+
+Stream testStreamBuilder() async* {
+  for (var i = 0; i < 10; i++) {
+    yield i * 2;
+  }
 }

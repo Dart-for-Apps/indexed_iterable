@@ -1,3 +1,8 @@
+# 1.1.0
+
+- Add auto-complete for `IndexedValue.value` and `IndexedValue.index`.
+- Add `IndexedStream` for `Stream` and `IndexedMap` for `Map.
+
 # 1.0.3
 
 Fix value type to template.

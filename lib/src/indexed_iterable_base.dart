@@ -1,21 +1,31 @@
+/// This library offers the indexed range-based loop for `Iterable`
+library indexed_iterable.indexed_iterable;
+
 import 'dart:collection';
+import 'package:indexed_iterable/indexed_iterable.dart';
 
-IndexedIterable II(_iterable) =>
-    _iterable is Iterable ? IndexedIterable(_iterable) : IndexedIterable([]);
+import 'model/indexed_value.dart';
 
-IndexedIterable toII(_iterable) => II(_iterable);
+/// For the users who prefer functions than classes
+IndexedIterable toII(Iterable _iterable) => II(_iterable);
 
-class IndexedIterable with IterableMixin {
+/// Abbr for IndexedIterable
+class II extends IndexedIterable {
+  II(Iterable iterable) : super(iterable);
+}
+
+/// Main class implementing indexing for `Iterable`
+class IndexedIterable with IterableMixin<IndexedValue> {
   IndexedIterable(this._iterable);
 
   final Iterable _iterable;
 
   @override
-  Iterator get iterator => IndexedIterator(_iterable);
+  Iterator<IndexedValue> get iterator => _IndexedIterableIterator(_iterable);
 }
 
-class IndexedIterator<ValueType> extends Iterator {
-  IndexedIterator(this._iterable) {
+class _IndexedIterableIterator<ValueType> extends Iterator<IndexedValue> {
+  _IndexedIterableIterator(this._iterable) {
     _innerIterator = _iterable.iterator;
   }
 
@@ -33,22 +43,7 @@ class IndexedIterator<ValueType> extends Iterator {
   }
 }
 
-class IndexedValue<ValueType> {
-  IndexedValue(this.index, this.value);
-
-  /// Index of the value
-  final int index;
-
-  /// Real value
-  final ValueType value;
-
-  @override
-  String toString() => 'IV($index, $value)';
-
-  @override
-  bool operator ==(other) => other is IndexedValue && index == other.index && value == other.value;
-}
-
+/// Alternative ways to convert iterables into IndexedIterable
 extension IndexedIterableExtension on Iterable {
   IndexedIterable get indexedIterable => IndexedIterable(this);
   IndexedIterable get ii => indexedIterable;
